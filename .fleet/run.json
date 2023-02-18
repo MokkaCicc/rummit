@@ -1,0 +1,41 @@
+{
+	"configurations": [
+		{
+			"name": "Format",
+			"type": "cargo",
+			"cargoArgs": ["fmt"],
+		},
+		{
+			"name": "Lint",
+			"dependsOn": ["Format"],
+			"type": "cargo",
+			"cargoArgs": ["clippy"],
+		},
+		{
+			"name": "Run",
+			"dependsOn": ["Format"],
+			"type": "cargo",
+			"cargoArgs": ["run"],
+		},
+		{
+			"name": "Build",
+			"dependsOn": ["Format"],
+			"type": "cargo",
+			"cargoArgs": ["build", "--release"],
+		},
+		{
+			"name": "Deploy (Linux)",
+			"type": "command",
+			"dependsOn": ["Format", "Build"],
+			"program": "/bin/cp",
+			"args": ["target/release/rummit", ".githooks/rummit"],
+		},
+		{
+			"name": "Deploy (Windows)",
+			"type": "command",
+			"dependsOn": ["Format", "Build"],
+			"program": "cmd.exe",
+			"args": ["/C", "copy target\\release\\rummit.exe", ".githooks\\rummit"],
+		}
+	]
+}
