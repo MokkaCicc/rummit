@@ -10,7 +10,7 @@ impl Commit {
 		CommitBuilder::new()
 	}
 
-	pub fn is_valid(&self, commit: &str) -> bool {
+	pub fn validate(&self, commit: &str) -> bool {
 		self.regex.is_match(commit)
 	}
 }
