@@ -1,2 +1,3 @@
 #!/bin/bash
-.githooks/rummit
+commit=`head -n1 $1`
+.githooks/rummit $commit
