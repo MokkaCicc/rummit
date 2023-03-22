@@ -1,4 +1,4 @@
-use super::Commit;
+use crate::commit::Commit;
 use regex::Regex;
 
 pub struct CommitBuilder {
@@ -30,13 +30,25 @@ impl CommitBuilder {
 		self
 	}
 
-	pub fn types(mut self, types: Vec<&str>) -> Self {
+	pub fn types(mut self, types: &[String]) -> Self {
 		let expression = CommitBuilder::group(&types.join("|"));
 		self.regex_string.push_str(&expression);
 		self
 	}
 
-	pub fn scopes(mut self) -> Self {
+	pub fn value_scope(mut self, values: &[String]) -> Self {
+		let expression = CommitBuilder::group(&values.join("|"));
+		self.regex_string.push_str(&expression);
+		self
+	}
+
+	pub fn project_item_scope(mut self) -> Self {
+		let expression = CommitBuilder::group(r"\(#[\d]+\)");
+		self.regex_string.push_str(&expression);
+		self
+	}
+
+	pub fn flexible_scope(mut self) -> Self {
 		let expression = CommitBuilder::group(r"\(.+\)");
 		self.regex_string.push_str(&expression);
 		self

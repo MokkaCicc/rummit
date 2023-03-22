@@ -1,0 +1,20 @@
+{
+	"enabled": true,
+	"debug": true,
+	"allow": {
+		"revert": true,
+		"breakingChange": true
+	},
+	"descriptionLength": {
+		"min": 1,
+		"max": 52
+	},
+	"types": [
+		"feat",
+		"fix"
+	],
+	"scope": {
+		"required": false,
+		"type": "flexible"
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"enabled": true,
+	"debug": true,
+	"allow": {
+		"revert": true,
+		"breakingChange": true
+	},
+	"descriptionLength": {
+		"min": 1,
+		"max": 52
+	},
+	"types": [
+		"build",
+		"ci",
+		"docs",
+		"feat",
+		"fix",
+		"perf",
+		"refactor",
+		"style",
+		"test",
+		"chore"
+	],
+	"scope": {
+		"required": false,
+		"type": "flexible"
+	}
+}
