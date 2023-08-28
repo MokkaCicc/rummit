@@ -1,3 +1,29 @@
-#!/bin/bash
+#! /bin/sh
 commit=`head -n1 $1`
-.githooks/rummit "$commit"
+
+# Linux
+if [ "$OSTYPE" = "linux-gnu"* ]; then
+	.githooks/rummit-linux "$commit"
+
+# POSIX compatibility layer and Linux environment emulation for Windows
+elif [ "$OSTYPE" = "cygwin" ]; then
+	.githooks/rummit-windows "$commit"
+
+# Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+elif [ "$OSTYPE" = "msys" ]; then
+	.githooks/rummit-windows "$commit"
+
+# MacOS
+elif [ "$OSTYPE" = "darwin"* ]; then
+	echo "MacOS is not supported, please disable rummit."
+	exit 1
+
+# FreeBSD
+elif [ "$OSTYPE" = "freebsd"* ]; then
+	echo "FreeBSD is not supported, please disable rummit."
+	exit 1
+
+else
+	echo "Unknown OS '$OSTYPE', please disable rummit."
+	exit 1
+fi
