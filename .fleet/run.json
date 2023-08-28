@@ -26,7 +26,7 @@
 		{
 			"name": "Install Cross",
 			"type": "cargo",
-			"cargoArgs": ["install", "cross", "--git", "https://github.com/cross-rs/cross"],
+			"cargoArgs": ["install", "cross", "--git", "https://github.com/cross-rs/cross"]
 		},
 		{
 			"name": "Cross-compile (Linux)",
@@ -53,7 +53,7 @@
 			"args": [
 				"target/x86_64-unknown-linux-gnu/release/rummit", ".githooks/rummit-linux", "&&",
 				"target/x86_64-windows-pc-gnu/release/rummit.exe", ".githooks/rummit-windows"
-			],
+			]
 		},
 		{
 			"name": "Deploy (Windows)",
@@ -67,7 +67,7 @@
 				"/C",
 				"copy", "target\\x86_64-unknown-linux-gnu\\release\\rummit", ".githooks\\rummit-linux", "&&",
 				"copy", "target\\x86_64-pc-windows-gnu\\release\\rummit.exe", ".githooks\\rummit-windows"
-			],
+			]
 		}
 	]
 }
