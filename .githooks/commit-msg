@@ -1,17 +1,21 @@
 #! /bin/sh
-commit=`head -n1 $1`
+commit_message=`head -n1 $1`
 
 # Linux
 if [ "$OSTYPE" = "linux-gnu"* ]; then
-	.githooks/rummit-linux "$commit"
+	.githooks/rummit-linux "$commit_message"
 
 # POSIX compatibility layer and Linux environment emulation for Windows
 elif [ "$OSTYPE" = "cygwin" ]; then
-	.githooks/rummit-windows "$commit"
+	.githooks/rummit-windows "$commit_message"
 
 # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
 elif [ "$OSTYPE" = "msys" ]; then
-	.githooks/rummit-windows "$commit"
+	.githooks/rummit-windows "$commit_message"
+
+# WSL (check for a specific file, since `OSTYPE` is empty)
+elif [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+	.githooks/rummit-linux "$commit_message"
 
 # MacOS
 elif [ "$OSTYPE" = "darwin"* ]; then
@@ -21,6 +25,11 @@ elif [ "$OSTYPE" = "darwin"* ]; then
 # FreeBSD
 elif [ "$OSTYPE" = "freebsd"* ]; then
 	echo "FreeBSD is not supported, please disable rummit."
+	exit 1
+
+# Empty OS type
+elif [ "x$OSTYPE" = "x" ]; then
+	echo "Unknown OS, please disable rummit."
 	exit 1
 
 else
