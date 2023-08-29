@@ -1,18 +1,24 @@
-use crate::commit_builder::CommitBuilder;
-use crate::rummit_options::{RummitOptions, ScopeType};
+use super::commit_regex_builder::CommitRegexBuilder;
+use super::options::{RummitOptions, ScopeType};
 use regex::Regex;
 
-pub struct Commit {
+pub struct CommitRegex {
 	pub regex: Regex,
 }
 
-impl Commit {
-	pub fn builder() -> CommitBuilder {
-		CommitBuilder::new()
+impl CommitRegex {
+	pub fn builder() -> CommitRegexBuilder {
+		CommitRegexBuilder::new()
 	}
 
-	pub fn from_options(options: &RummitOptions) -> Commit {
-		let mut builder = Commit::builder();
+	pub fn validate(&self, commit: &str) -> bool {
+		self.regex.is_match(commit)
+	}
+}
+
+impl From<&RummitOptions> for CommitRegex {
+	fn from(options: &RummitOptions) -> Self {
+		let mut builder = CommitRegex::builder();
 		if options.allow.revert {
 			builder = builder.reverse();
 			builder = builder.optionnal();
@@ -40,9 +46,5 @@ impl Commit {
 		);
 
 		builder.build()
-	}
-
-	pub fn validate(&self, commit: &str) -> bool {
-		self.regex.is_match(commit)
 	}
 }

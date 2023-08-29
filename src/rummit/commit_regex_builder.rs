@@ -1,20 +1,20 @@
-use crate::commit::Commit;
+use super::commit_regex::CommitRegex;
 use regex::Regex;
 
-pub struct CommitBuilder {
+pub struct CommitRegexBuilder {
 	regex_string: String,
 }
 
-impl CommitBuilder {
+impl CommitRegexBuilder {
 	pub fn new() -> Self {
 		Self {
 			regex_string: String::from('^'),
 		}
 	}
 
-	pub fn build(mut self) -> Commit {
+	pub fn build(mut self) -> CommitRegex {
 		self.regex_string.push('$');
-		Commit {
+		CommitRegex {
 			regex: Regex::new(self.regex_string.as_str()).unwrap(),
 		}
 	}
@@ -25,31 +25,31 @@ impl CommitBuilder {
 	}
 
 	pub fn reverse(mut self) -> Self {
-		let expression = CommitBuilder::group("revert: ");
+		let expression = CommitRegexBuilder::group("revert: ");
 		self.regex_string.push_str(&expression);
 		self
 	}
 
 	pub fn types(mut self, types: &[String]) -> Self {
-		let expression = CommitBuilder::group(&types.join("|"));
+		let expression = CommitRegexBuilder::group(&types.join("|"));
 		self.regex_string.push_str(&expression);
 		self
 	}
 
 	pub fn value_scope(mut self, values: &[String]) -> Self {
-		let expression = CommitBuilder::group(&values.join("|"));
+		let expression = CommitRegexBuilder::group(&values.join("|"));
 		self.regex_string.push_str(&expression);
 		self
 	}
 
 	pub fn project_item_scope(mut self) -> Self {
-		let expression = CommitBuilder::group(r"\(#[\d]+\)");
+		let expression = CommitRegexBuilder::group(r"\(#[\d]+\)");
 		self.regex_string.push_str(&expression);
 		self
 	}
 
 	pub fn flexible_scope(mut self) -> Self {
-		let expression = CommitBuilder::group(r"\(.+\)");
+		let expression = CommitRegexBuilder::group(r"\(.+\)");
 		self.regex_string.push_str(&expression);
 		self
 	}
@@ -65,12 +65,12 @@ impl CommitBuilder {
 	}
 
 	pub fn description(mut self, min: i32, max: i32) -> Self {
-		let expression = format!(".{{{},{}}}", min, max);
+		let expression = format!(".{{{min},{max}}}");
 		self.regex_string.push_str(&expression);
 		self
 	}
 
 	fn group(expression: &str) -> String {
-		format!("({})", expression)
+		format!("({expression})")
 	}
 }
