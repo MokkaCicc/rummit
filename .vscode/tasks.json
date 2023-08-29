@@ -71,14 +71,7 @@
 				"Cross-compile (Windows)"
 			],
 			"type": "shell",
-			"command": "/bin/cp",
-			"args": [
-				"target/x86_64-unknown-linux-gnu/release/rummit",
-				".githooks/rummit-linux",
-				"&&",
-				"target/x86_64-windows-pc-gnu/release/rummit.exe",
-				".githooks/rummit-windows"
-			]
+			"command": "./scripts/deploy-linux.sh"
 		},
 		{
 			"label": "Deploy (Windows)",
@@ -87,17 +80,7 @@
 				"Cross-compile (Windows)"
 			],
 			"type": "shell",
-			"command": "cmd.exe",
-			"args": [
-				"/C",
-				"copy",
-				"target\\x86_64-unknown-linux-gnu\\release\\rummit",
-				".githooks\\rummit-linux",
-				"&&",
-				"copy",
-				"target\\x86_64-pc-windows-gnu\\release\\rummit.exe",
-				".githooks\\rummit-windows"
-			]
+			"command": ".\\scripts\\deploy-windows.bat",
 		}
 	]
 }
