@@ -33,6 +33,11 @@ impl From<Regex> for CommitRegex {
 impl From<&RummitOptions> for CommitRegex {
 	fn from(options: &RummitOptions) -> Self {
 		let mut builder = CommitRegex::builder();
+		match options.is_valid() {
+			Ok(_) => (),
+			Err(_) => return builder.build(),
+		}
+
 		if options.allow.revert {
 			builder = builder.reverse();
 			builder = builder.optionnal();

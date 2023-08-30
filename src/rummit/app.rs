@@ -29,6 +29,14 @@ impl App {
 			}
 		};
 
+		match options.is_valid() {
+			Ok(_) => (),
+			Err(error) => {
+				println!("Invalid options: {error}");
+				return ExitCode::FAILURE;
+			}
+		}
+
 		if !options.enabled {
 			return ExitCode::SUCCESS; // Do nothing.
 		}

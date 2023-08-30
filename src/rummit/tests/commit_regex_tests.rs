@@ -67,7 +67,6 @@ fn conventional_commit_add_type() {
 }
 
 #[test]
-#[should_panic]
 fn conventional_commit_no_type() {
 	let options = conventional_commit_options();
 	let mutated_options = RummitOptions {
@@ -75,7 +74,9 @@ fn conventional_commit_no_type() {
 		..options
 	};
 
-	let _commit_regex = CommitRegex::from(&mutated_options);
+	let commit_regex = CommitRegex::from(&mutated_options);
+
+	assert_eq!(commit_regex.to_string(), "^$")
 }
 
 pub fn conventional_commit_options() -> RummitOptions {
