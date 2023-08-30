@@ -15,9 +15,8 @@ impl CommitRegexBuilder {
 	pub fn build(mut self) -> CommitRegex {
 		self.regex_string.push('$');
 		//TODO: verify regex integrity
-		CommitRegex {
-			regex: Regex::new(self.regex_string.as_str()).unwrap(),
-		}
+		let regex = Regex::new(self.regex_string.as_str()).unwrap();
+		CommitRegex::from(regex)
 	}
 
 	pub fn optionnal(mut self) -> Self {

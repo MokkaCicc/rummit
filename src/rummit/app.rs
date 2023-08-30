@@ -48,7 +48,7 @@ impl App {
 		}
 
 		if options.debug {
-			println!("{} -> {}", commit_regex.regex, commit_message);
+			println!("{} -> {}", commit_regex, commit_message);
 			println!("Debug mod enabled, aborting commit...");
 			return ExitCode::FAILURE;
 		}
