@@ -18,8 +18,8 @@ impl RummitOptions {
 			return Err("Should have at least one type.".into());
 		}
 
-		if self.scope._type == ScopeType::Value {
-			match self.scope.values.clone() {
+		match self.scope._type {
+			ScopeType::Value => match self.scope.values.clone() {
 				Some(values) => {
 					if values.is_empty() {
 						return Err("With `scope.type` set to `Value`, `scope.values` need to have at least one value.".into());
@@ -30,6 +30,14 @@ impl RummitOptions {
 						"With `scope.type` set to `Value`, `scope.values` need to be created"
 							.into(),
 					)
+				}
+			},
+			_ => {
+				if self.scope.values.is_some() {
+					return Err(
+						"With `scope.type` set not set to `Value`, `scope.values` is useless."
+							.into(),
+					);
 				}
 			}
 		}
