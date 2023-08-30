@@ -4,3 +4,6 @@ pub mod commit_regex_builder;
 pub mod commit_retriever;
 pub mod options;
 pub mod options_loader;
+
+#[cfg(test)]
+mod tests;

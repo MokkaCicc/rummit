@@ -1,6 +1,7 @@
 {
 	"recommendations": [
 		"rust-lang.rust-analyzer",
-		"cnshenj.vscode-task-manager"
+		"cnshenj.vscode-task-manager",
+		"swellaby.vscode-rust-test-adapter"
 	]
 }

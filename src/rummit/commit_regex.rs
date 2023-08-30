@@ -1,9 +1,11 @@
+use std::fmt::{self, Display, Formatter};
+
 use super::commit_regex_builder::CommitRegexBuilder;
 use super::options::{RummitOptions, ScopeType};
 use regex::Regex;
 
 pub struct CommitRegex {
-	pub regex: Regex,
+	regex: Regex,
 }
 
 impl CommitRegex {
@@ -13,6 +15,18 @@ impl CommitRegex {
 
 	pub fn validate(&self, commit: &str) -> bool {
 		self.regex.is_match(commit)
+	}
+}
+
+impl Display for CommitRegex {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		write!(f, "{}", self.regex)
+	}
+}
+
+impl From<Regex> for CommitRegex {
+	fn from(regex: Regex) -> Self {
+		Self { regex }
 	}
 }
 
