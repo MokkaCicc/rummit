@@ -38,13 +38,21 @@
 			]
 		},
 		{
+			"name": "Test",
+			"dependsOn": [
+				"Build"
+			],
+			"type": "cargo",
+			"cargoArgs": [
+				"test"
+			]
+		},
+		{
 			"name": "Install Cross",
 			"type": "cargo",
 			"cargoArgs": [
 				"install",
-				"cross",
-				"--git",
-				"https://github.com/cross-rs/cross"
+				"cross"
 			]
 		},
 		{
@@ -80,6 +88,7 @@
 		{
 			"name": "Deploy (Linux)",
 			"dependsOn": [
+				"Test",
 				"Cross-compile (Linux)",
 				"Cross-compile (Windows)"
 			],
@@ -89,6 +98,7 @@
 		{
 			"name": "Deploy (Windows)",
 			"dependsOn": [
+				"Test",
 				"Cross-compile (Linux)",
 				"Cross-compile (Windows)"
 			],
